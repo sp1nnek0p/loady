@@ -1,0 +1,46 @@
+<nav class="py-3 navbar navbar-expand-lg navbar-dark text-bg-dark bg-dark">
+    <div class="container-fluid">
+        <a href="{% url 'home' %}" class="navbar-brand"><h3 class="display-6 text-warning">| LOADY |</h3></a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                <li class="nav-item">Welcome @{{request.user}} </li>
+            </ul>
+            
+            <div class="text-end">
+                <ul class="navbar-nav">
+            {% if request.user.is_authenticated %}
+            <li class="nav-item dropdown">
+                <a class="nav-link active dropdown-toggle text-warning" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Menu
+                </a>
+                <ul class="dropdown-menu bg-warning" style="--bs-bg-opacity: .8;" aria-labelledby="navbarScrollingDropdown">
+                    <li><a class="dropdown-item" href="{% url 'profile' request.user.id %}">View My Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'editprofile' request.user.id %}">Edit My Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'createload' %}">Create a Load</a></li>
+
+                    <li><a class="dropdown-item" href="{% url 'messages' request.user.id %}">Messages</a></li>
+
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+            </li> 
+            {% else %}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}"><button type="button" class="btn btn-sm btn-outline-light">Login</button></a>
+                </li><li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}"><button type="button" class="btn btn-sm btn-warning">Sign-up</button></a>
+                </li>
+            {% endif %}
+            </ul>
+            </div>
+            <form method="GET" action="{% url 'home' %}" class="d-flex" role="search">
+                <input style="width:350px" class="mx-4 form-control me-2" name="q" id="query" type="search" placeholder="Search loads ..." aria-label="Search" />
+            </form>
+        </div>
+</nav>
+

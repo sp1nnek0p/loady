@@ -1,0 +1,20 @@
+{% if loads %}
+<div class="d-flex justify-content-center mt-3">
+    <nav>
+        <ul class="pagination">
+            {% if loads.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page={{ loads.previous_page_number }}">Previous</a></li>
+            {% endif %}
+    
+            {% for page in loads.paginator %}
+          <li class="page-item"><a class="page-link" href="?page={{ page.number }}">{{page.number}}</a></li>
+          {% endfor %}
+            {% if loads.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ loads.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+<hr/>
+{% endif %}

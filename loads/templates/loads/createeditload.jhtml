@@ -1,0 +1,120 @@
+{% extends 'main.html' %} {% block content %} {% load widget_tweaks %}
+
+
+<div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+        <div class="m-lg-3 card bg-secondary shadow" style="--bs-bg-opacity: .25;">
+            <div class="card-header bg-dark text-bg-dark" style="--bs-bg-opacity: .85;">
+                <h4 class="my-3" style="text-align: center;">{{document_title}}</h4>
+            </div>
+            <div class="card-body">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="my-2 row">
+                <div class="col-lg">
+                    <div class="form-group">
+                        <label for="title">Title:</label>
+                        {{load_form.title|add_class:"form-control"|attr:"required"|attr:"placeholder:Enter a title ..."}}
+                    </div>
+                </div>  
+            </div>
+            <div class="my-2 row">
+                <div class="col-lg">
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        {{load_form.description|add_class:"form-control"|attr:"rows:4"|attr:"placeholder:Enter a description ..."}}
+                    </div>  
+                </div>
+            </div>
+            <div class="my-2 row">
+                <div class="col-lg">
+                    <div class="form-group">
+                        <label for="vehicleType">Required Vehicle:</label>
+                        {{load_form.vehicleType|add_class:"form-control"|attr:"placeholder:Enter a the required vehicle ..."}}
+                        </div>
+                    </div>
+                    <div class="col-lg">
+                        <div class="form-group">
+                            <label for="totalVehiclesRequired">Number Vehicles Required:</label>
+                            {{load_form.totalVehiclesRequired|add_class:"form-control"|attr:"placeholder:Enter total number of vehicles required ..."}}
+                        </div>
+                    </div>
+                </div>
+                <div class="my-2 row">
+                    <div class="col-lg">
+                        <div class="form-group">
+                            <label for="pickup">Load From</label>
+                            {{load_form.pickup|add_class:"form-control"|attr:"required"|attr:"placeholder:Enter a the pickup area ..."}}
+                        </div>
+                    </div>
+                    <div class="col-lg">
+                        <div class="form-group">
+                            <label for="dropoff">Load To</label>
+                            {{load_form.dropoff|add_class:"form-control"|attr:"required"|attr:"placeholder:Enter a the offload area ..."}}
+                        </div>
+                    </div>
+                </div>
+                <div class="my-2 row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="product">Loading Product</label>
+                            {{load_form.product|add_class:"form-control"|attr:"required"|attr:"placeholder:Enter what the load is ..."}}
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="price">Load Price</label>
+                            {{load_form.price|add_class:"form-control"|attr:"required"}}
+                        </div>
+                    </div>
+                    <div class="mt-4 col-lg-auto">
+                        <div class="form-check">
+                            {{load_form.pricePerTon|add_class:"form-check-input"}}
+                            <label clas="form-check-label" for="pricePerTon">Per Ton</label>
+                        </div>
+                    </div>
+                    <div class="mt-4 col-lg-auto">
+                        <div class="form-check">
+                            {{load_form.git|add_class:"form-check-input"}}
+                            <label class="form-check-label" for="git">GIT</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="my-2 row">
+                    <div class="col-lg">
+                        <div class="form-group">
+                            <label for="totalTons">Ton to transport</label>
+                            {{load_form.totalTons|add_class:"form-control"}}
+                        </div>
+                    </div>
+                    <div class="col-lg">
+                        <div class="form-group">
+                            <label for="oredernumber">Load Order Number</label>
+                            {{load_form.ordernumber|add_class:"form-control"|attr:"placeholder:Enter order number if any ..."}}
+                        </div>
+                    </div>
+                </div>
+                <div class="my-2 row">    
+                    {% if document_title == 'Edit Load' %}
+                    <div class="col-lg">
+                        <div class="m-3 form-check">
+                            {{load_form.completed|add_class:"form-check-input"}}
+                            <label class="form-check-label" for="completed">Load is no longer available</label>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href="{% url 'home' %}">
+                        <input type="button" value="Cancel" class="m-3 btn btn-secondary">
+                    </a>
+                    <input type="submit" value="Save Load" class="m-3 btn btn-warning">
+                </div>
+    </form>
+</div>
+</div>
+</div>
+<div class="col-lg-2"></div>
+</div>
+{% endblock content %}

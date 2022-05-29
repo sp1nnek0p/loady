@@ -1,0 +1,19 @@
+{% for load in loads %}
+<div class="list-group">
+
+    {% if not load.completed %}
+    {% if request.user == load.user %}
+    <a href="{% url 'loadview' load.id %}" class="shadow my-1 list-group-item list-group-item-action bg-secondary" style="--bs-bg-opacity: .15;" aria-current="true">
+        {% else %}
+    <a href="{% url 'loadview' load.id %}" class="shadow my-1 list-group-item list-group-item-action" aria-current="true">  
+        {% endif %}
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{load.title}}</h5>
+        <small>{{load.created|timesince}}</small>
+      </div>
+      <p class="mb-1">From <strong>{{load.pickup}}</strong> to <strong>{{load.dropoff}}</strong>, preferred transport <strong>{{load.vehicleType}}</strong></p>
+      <small>R {{load.price}} </small>
+    </a>
+    {% endif %}
+  </div>
+    {% endfor %}

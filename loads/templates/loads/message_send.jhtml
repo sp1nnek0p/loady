@@ -1,0 +1,17 @@
+{% extends 'main.html' %} {% block content %}
+<div class="row">
+<div class="col-lg-3"></div>
+
+<div class="col-lg-6">
+    <div class="m-lg-3 card bg-secondary shadow" style="--bs-bg-opacity: .25;">
+        <div class="card-header bg-dark text-bg-dark" style="--bs-bg-opacity: .85;">
+            <h4 class="my-3" style="text-align: center;">Direct Message @{{user}}</h4>
+        </div>
+        <div class="card-body">
+        {% include 'loads/comp_send_message.jhtml' %}
+        </div>
+    </div>
+</div>
+<div class="col-lg-3"></div>
+</div>
+{% endblock content %}

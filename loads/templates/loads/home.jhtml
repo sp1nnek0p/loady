@@ -1,0 +1,17 @@
+{% extends 'main.html' %}{% block content %}
+<!---->
+
+
+<div class="row">
+<div class="col-lg-2"></div>
+<div class="col-lg-8">
+<h4 class="my-3" style="text-align: center;">Recent Loads</h4>
+<hr />
+{% include 'loads/comp_loads.jhtml' %}
+
+{% include 'loads/comp_load_pagination.jhtml' %}
+
+</div>
+<div class="col-lg-2"></div>
+</div>
+{% endblock content %}

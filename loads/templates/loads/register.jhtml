@@ -1,0 +1,50 @@
+{% extends 'main.html' %}{% block content %}{% load widget_tweaks %}
+<!---->
+<div class="row">
+<div class="col-lg-4"></div>
+<div class="col-lg-4">
+    <div class="m-lg-3 card bg-secondary shadow" style="--bs-bg-opacity: .25;">
+        <div class="card-header bg-dark text-bg-dark" style="--bs-bg-opacity: .85;">
+        <h4 class="my-3" style="text-align: center;">Register Account</h4>
+        </div>
+        <div class="card-body">
+
+<form method="POST" action="">
+    {% csrf_token %} 
+        <div class="form-group">
+            {{form.username.label}}
+            <div class="input-group">
+                <div class="input-group-text">@</div>
+                {{form.username|add_class:"form-control"|attr:"required"|attr:"placeholder:Enter username"}}
+            </div>
+
+            <div class="form-group">
+                {{form.password1.label}}
+                {{form.password1|add_class:"form-control"|attr:"required"|attr:"placeholder:password"}}
+            </div>
+ 
+            <div class="form-group">
+                {{form.password2.label}}
+                {{form.password2|add_class:"form-control"|attr:"required"|attr:"placeholder:Confirm_Password"}}
+            </div>
+
+            <div class="d-flex justify-content-center mt-3">
+            <a href="{% url 'home' %}">
+            <input type="button" value="Cancel" class="m-2 btn btn-secondary">
+            </a>
+            <input type="submit" value="Register" class="m-2 btn btn-warning">
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <p>Already signed up? <a href="{% url 'login' %}">Login</a></p>
+            </div>
+</form>
+
+</div>
+</div>
+</div>
+<div class="col-lg-4"></div>
+
+</div>
+
+{% endblock content %}

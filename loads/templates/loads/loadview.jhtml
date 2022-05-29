@@ -1,0 +1,85 @@
+{% extends 'main.html' %}{% block content %}
+
+<div class="row">
+<div class="col-lg-4">
+    <h4 class="my-3" style="text-align: center;">Recent Loads</h4>
+<hr />
+    {% include 'loads/comp_loads.jhtml' %}
+
+    {% include 'loads/comp_load_pagination.jhtml' %}
+</div>
+    <div class="col-lg-8">
+
+            <div class="m-lg-3 card bg-secondary shadow text-center" style="--bs-bg-opacity: .25;">
+                <div class="card-header bg-dark text-bg-dark" style="--bs-bg-opacity: .85;">
+                <h4 class="my-3" style="text-align: center;">Load Details</h4>
+                </div>
+            <div class="card-body">
+                <div id="map" class="rounded-3" style="height: 380px;">
+                    <input type="hidden" id="pickX" value="{{load.pickX}}">
+                    <input type="hidden" id="pickY" value="{{load.pickY}}">
+                    <input type="hidden" id="dropX" value="{{load.dropX}}">
+                    <input type="hidden" id="dropY" value="{{load.dropY}}">
+                </div>
+
+                <h5 class="card-title">
+                    {{load.title}}</h5>
+                <p class="card-text">{{load.description}}</p>
+
+                <ul class="mb-4 list-group list-group-flush">
+                    <li class="list-group-item rounded-top">From {{load.pickup}} to {{load.dropoff}} total distance <w id="distance"></w> km</li>
+                    <li class="list-group-item">We require {{load.totalVehiclesRequired}} vehicle to move {{load.totalTons}} ton</li>
+                    <li class="list-group-item">We prefer {{load.vehicleType}} to move our load</li>
+                    <li class="list-group-item">You will be loading {{load.product}}</li>
+                    <li class="list-group-item rounded-bottom">We will pay {{load.price}} {% if load.pricePerTon %}per Ton{% endif %}</li>
+
+                </ul>
+
+                {% if request.user == load.user %}
+                <a href="{% url 'editload' load.id %}" class="btn btn-warning">Edit Load</a>
+                {% else %}
+                <a href="{% url 'sendmessage' load.user.id %}" class="btn btn-warning">Send Message</a>
+                {% endif %}
+            
+            </div>
+    <div class="card-footer text-muted">
+        {{load.created|timesince}}
+    </div>
+</div>
+
+
+
+</div>
+
+<script>
+
+    pickX = document.getElementById('pickX')
+    pickY = document.getElementById('pickY')
+    dropX = document.getElementById('dropX')
+    dropY = document.getElementById('dropY')
+
+    var map = L.map('map').setView([-29.087217, 26.154898], 5);
+    // .setView([-29.087217, 26.154898], 5) - Bloemfontein
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap | © Microb1t',
+        }).addTo(map);
+
+    var routeControl = L.Routing.control({
+    waypoints: [
+        L.latLng(pickY.value, pickX.value),
+        L.latLng(dropY.value, dropX.value)
+        ],
+        show: false,
+        dragging: false,
+        scrollWheelZoom: false,
+    })
+    .addTo(map);
+    routeControl.on('routesfound', function(e) {
+    var routes = e.routes;
+    var summary = routes[0].summary;
+    const distanceOut = document.getElementById('distance');
+    distanceOut.innerHTML = Math.round( ( (summary.totalDistance / 1000) + Number.EPSILON ) * 100 ) / 100;   
+});
+
+</script>
+{% endblock content %}

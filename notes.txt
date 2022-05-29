@@ -1,0 +1,57 @@
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in orci finibus metus condimentum congue efficitur eget ante. Sed rhoncus condimentum orci sit amet venenatis
+
+
+    {% if request.user.is_authenticated %}
+    <p><small>Welcome @{{request.user}}</small></p>
+    <a href="{% url 'logout' %}">Logout</a>
+    <a href="{% url 'createload' %}">Create a Load</a>
+    {% else %}
+    <p><small>You have to be logged in to view loads</small></p>
+    <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+
+
+     <a href="{% url 'delete' load.id %}"><input type="button" value="Delete" class="btn btn-sm btn-danger"></a>
+
+
+     <table class="table">
+    <thead>
+        <tr>
+            <th width="10%">Posted</th>
+            <th width="10%">Title</th>
+            <th width="10%">From</th>
+            <th width="10%">To</th>
+            <th width="15%">Vehicle</th>
+            <th width="20%">Product</th>
+            <th width="10%">Price</th>
+            {% if request.user.is_authenticated %}
+            {% if request.user == load.user %}
+            <th width="15%"> - </th>
+            {% endif %}
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for load in loads  %}
+        {% if not load.completed %}
+        <tr>
+            <td><small>{{load.created|timesince}}</small></td>
+            <td>{{load.title}}</td>
+            <td>{{load.pickup}}</td>
+            <td>{{load.dropoff}}</td>
+            <td>{{load.vehicleType}}</td>
+            <td>{{load.product}}</td>
+            <td>{{load.price}}</td>
+            {% if request.user.is_authenticated %}
+
+            <td style="text-align:right"><a href="{% url 'loadview' load.id %}"><input type="button" value="View" class="btn btn-sm btn-primary"></a>
+            {% if request.user == load.user %}
+            <a href="{% url 'editload' load.id %}"><input type="button" value="Edit" class="btn btn-sm btn-secondary"></a>
+           </td>
+            {% endif %}
+            {% endif %}
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </tbody>
+</table>

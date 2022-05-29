@@ -1,0 +1,58 @@
+{% extends 'main.html' %}{% block content %}
+<div class="row">
+<div class="col-lg-2"></div>
+<div class="col-lg-8">
+    <div class="m-lg-3 card bg-secondary shadow text-center" style="--bs-bg-opacity: .25;">
+        <div class="card-header bg-dark text-bg-dark" style="--bs-bg-opacity: .85;">
+        <h4 class="my-3" style="text-align: center;">@{{user.username}} Profile</h4>
+        </div>
+        <div class="card-body">
+    <div class="card text-center">
+        <div class="card-header">
+            <strong>{{detailuser.companyName}}</strong>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{load.Title}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">📧 {{detailuser.email}}</h6>
+            <p class="card-text">{{detailuser.companyDescription}}</p>
+            {% if detailuser.isTransporter %}
+            <p class="card-text">We have a fleet {{detailuser.fleetsize}} vehicles</p>
+            {% endif %}
+            {% if detailuser.documentVerified %}
+            <ul class="mb-4 list-group list-group-flush">
+                <li class="list-group-item"></li>
+            </ul>
+            {% else %}
+            <ul class="mb-4 list-group list-group-flush">
+                <li class="list-group-item"><strong>Detailed information will be displayed when user is verified</strong></li>
+            </ul>
+            {% endif %}
+            {% if not request.user == user %}
+            <a href="{% url 'sendmessage' user.id %}" class="btn btn-primary">Send a Message</a>
+            {% endif %}
+
+        </div>
+  
+        </div>
+        <h4 class="my-3" style="text-align: center;">Loads posted by <strong>@{{user.username}}</strong></h4>
+        <hr />
+        {% include 'loads/comp_loads.jhtml' %}
+        {% include 'loads/comp_load_pagination.jhtml' %}
+
+</div>
+</div>
+</div>
+
+
+</div>
+<div class="col-lg-2"></div>
+</div>
+
+
+{% endblock content %}
+
+
+
+
+
+
