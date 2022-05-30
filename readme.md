@@ -6,7 +6,7 @@ This is my first Django app, and I had to do alot of research to get this done.
 
 The app allows users to come to the site register for a new account and post loads they need transported, and transporters can come and see loads that are available and speak directly to the their clients. 
 
-I will be writting a new version of this that I will deploy to Heroku as this was purely a test to see not only what Django is capable of but to also asses my self if I would be able a do a project like this. This project is not done, but it is in a working state. I saw what I would like to impove and will be starting with LOADY v2, within this week.
+I will be writting a new version of this that I will deploy to Heroku as this was purely a test to see not only what Django is capable of but to also test my self if I would be able a do a project like this. This project is not done, but it is in a working state. I saw what I would like to impove and will be starting with LOADY v2, within this week.
 
 ## Features 
 - Direct Messaging
